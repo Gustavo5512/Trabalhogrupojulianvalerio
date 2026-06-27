@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeoVolt | Especialistas em Energia Sustentável</title>
+    
+    <!-- Tailwind CSS (via CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuração do Tailwind para cores personalizadas da marca -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        deepblue: '#0B132B',
+                        sunset: '#FF6B35',
+                        sunyellow: '#FFB703',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- CSS Customizado para Animações e Efeitos Específicos -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+
+        /* 1. Animação Ken Burns (Zoom in e out contínuo na imagem de fundo) */
+        .bg-ken-burns {
+            animation: kenBurns 25s ease-in-out infinite alternate;
+            transform-origin: center;
+        }
+
+        @keyframes kenBurns {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.15); }
+        }
+
+        /* 2. Overlay Degradê Semitransparente (Azul Profundo para Laranja Pôr do Sol) */
+        .hero-overlay {
+            background: linear-gradient(
+                135deg, 
+                rgba(11, 19, 43, 0.9) 0%, /* Azul Profundo / Deep Blue */
+                rgba(255, 107, 53, 0.65) 100% /* Laranja Pôr do Sol / Sunset */
+            );
+        }
+
+        /* 3. Animação Fade-Up para textos */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeUpAnim 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes fadeUpAnim {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Atrasos (Delays) para o efeito escadinha no fade-up */
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.3s; }
+        .delay-300 { animation-delay: 0.5s; }
+
+        /* 4. Animação Flutuante (Floating) para o elemento de energia limpa */
+        .floating-element {
+            animation: float 5s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-25px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Efeito de brilho pulsante atrás do elemento flutuante */
+        .glow-pulse {
+            animation: pulseGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0% { opacity: 0.5; transform: scale(0.9); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+            100% { opacity: 0.5; transform: scale(0.9); }
+        }
+
+        /* Estilização extra para Glassmorphism no Nav e Cartões */
+        .glass-nav {
+            background: rgba(11, 19, 43, 0.15);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Personalização do Scrollbar para estética Clean */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0B132B; }
+        ::-webkit-scrollbar-thumb { background: #FF6B35; border-radius: 4px; }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden text-slate-800">
+
+    <!-- NAVEGAÇÃO FIXA (GLASSMORPHISM) -->
+    <nav class="fixed top-0 left-0 w-full z-50 glass-nav transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="flex items-center gap-2 group">
+                        <svg class="h-8 w-8 text-sunset group-hover:text-sunyellow transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                        <span class="text-white text-2xl font-bold tracking-tight">Neo<span class="font-light text-gray-300">Volt</span></span>
+                    </a>
+                </div>
+                
+                <!-- Links Desktop -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="text-white hover:text-sunset px-3 py-2 text-sm font-medium transition-colors border-b-2 border-sunset">Home</a>
+                        <a href="sobre.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium transition-colors border-b-2 border-transparent hover:border-white/50">Sobre</a>
+                        <a href="catalogo.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium transition-colors border-b-2 border-transparent hover:border-white/50">Catálogo</a>
+                        <a href="serviços.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium transition-colors border-b-2 border-transparent hover:border-white/50">Serviços</a>
+                        <a href="galeria.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium transition-colors border-b-2 border-transparent hover:border-white/50">Galeria</a>
+                        <a href="contato.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium transition-colors border-b-2 border-transparent hover:border-white/50">Contato</a>
+                    </div>
+                </div>
+
+                <!-- Botão Mobile -->
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-white/10 focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Abrir menu</span>
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SEÇÃO HERO (Imagem com Ken Burns, Overlay Degradê e Textos Animados) -->
+    <header class="relative h-screen w-full overflow-hidden flex items-center">
+        
+        <!-- Background Imagem c/ Ken Burns -->
+        <div class="absolute inset-0 w-full h-full z-0 overflow-hidden">
+            <!-- Utilizando uma imagem de alta qualidade do Unsplash de uma fazenda solar ao pôr do sol -->
+            <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=2072&auto=format&fit=crop" 
+                 alt="Fazenda Solar Sustentável" 
+                 class="w-full h-full object-cover bg-ken-burns">
+        </div>
+
+        <!-- Overlay Degradê (Azul profundo p/ Laranja) -->
+        <div class="absolute inset-0 z-10 hero-overlay pointer-events-none"></div>
+
+        <!-- Conteúdo Principal -->
+        <div class="relative z-20 max-w-7xl mx-auto px-6 lg:px-8 w-full flex flex-col md:flex-row items-center justify-between gap-12">
+            
+            <!-- Coluna Texto -->
+            <div class="w-full md:w-3/5 text-white pt-20 md:pt-0">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-6 fade-up">
+                    <span class="w-2 h-2 rounded-full bg-sunyellow animate-pulse"></span>
+                    <span class="text-xs font-semibold tracking-wider uppercase text-gray-200">Revolução Off-Grid</span>
+                </div>
+                
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 fade-up delay-100">
+                    A Força da Natureza <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-sunyellow to-sunset">
+                        Potencializando o seu Futuro
+                    </span>
+                </h1>
+                
+                <p class="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl font-light fade-up delay-200 leading-relaxed">
+                    Sistemas avançados de painéis solares, inversores de alta capacidade e armazenamento off-grid. Transforme a luz do sol em independência energética com tecnologia 'Clean Tech'.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 fade-up delay-300">
+                    <a href="catalogo.html" class="px-8 py-4 bg-sunset hover:bg-[#e65100] text-white rounded-full font-semibold transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(255,107,53,0.4)] text-center">
+                            Explorar Sistemas
+                        </a>
+                        <a href="contato.html" class="px-8 py-4 bg-transparent border border-white/40 hover:bg-white/10 hover:border-white text-white rounded-full font-semibold transition-all text-center">
+                            Falar com Engenheiro
+                        </a>
+                </div>
+            </div>
+
+            <!-- Coluna Elemento Flutuante (Animação Keyframes) -->
+            <div class="w-full md:w-2/5 flex justify-center items-center mt-12 md:mt-0 fade-up delay-300 hidden md:flex">
+                <div class="relative w-72 h-72 lg:w-96 lg:h-96">
+                    
+                    <!-- Brilho ao fundo -->
+                    <div class="absolute inset-0 bg-sunset rounded-full blur-[80px] glow-pulse z-0"></div>
+                    
+                    <!-- Container Flutuante Glassmorphism -->
+                    <div class="floating-element relative z-10 w-full h-full glass-card rounded-full flex flex-col items-center justify-center p-8">
+                        
+                        <!-- Ícone/Símbolo Clean Tech (Painel/Sol estilizado) -->
+                        <div class="relative">
+                            <svg class="w-32 h-32 text-sunyellow drop-shadow-[0_0_15px_rgba(255,183,3,0.8)] mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <!-- Sol -->
+                                <circle cx="12" cy="12" r="4" stroke-width="2" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m0 16v2m10-10h-2M4 12H2m15.364-7.364l-1.414 1.414M6.05 17.95l-1.414 1.414m12.728 0l-1.414-1.414M6.05 6.05L4.636 4.636" />
+                            </svg>
+                            <!-- Pequena folha/energia cruzando -->
+                            <svg class="w-12 h-12 text-green-400 absolute -bottom-2 -right-2 drop-shadow-[0_0_10px_rgba(74,222,128,0.8)]" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17 5.98c-3.14.16-5.83 2.16-7 5.02-1.17-2.86-3.86-4.86-7-5.02 0 4.14 2.86 7.64 6.71 8.71C9.17 18.23 8 21.05 8 24h2c0-2.61.9-5.05 2.42-7 2.11 1.56 4.8 2.5 7.58 2.5v-2c-2.31 0-4.46-.74-6.23-2.02C17.39 14.19 20 10.36 20 5.98h-3z"/>
+                            </svg>
+                        </div>
+                        
+                        <h3 class="text-white text-xl font-bold tracking-wide">100% Limpa</h3>
+                        <p class="text-white/70 text-sm mt-1">Eficiência Comprovada</p>
+                        
+                        <!-- Anéis Orbitais Decorativos -->
+                        <div class="absolute inset-0 border border-white/10 rounded-full scale-110"></div>
+                        <div class="absolute inset-0 border border-white/5 rounded-full scale-125"></div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- Indicador de Scroll -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex flex-col items-center animate-bounce text-white/50">
+            <span class="text-xs uppercase tracking-widest mb-2 font-medium">Descubra</span>
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </div>
+    </header>
+
+    <!-- BREVE SEÇÃO DE DESTAQUES (Para não ficar apenas o Hero em uma tela em branco) -->
+    <section class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-sunset font-semibold tracking-wider uppercase text-sm mb-3">Ecossistema Completo</h2>
+                <h3 class="text-3xl md:text-4xl font-bold text-deepblue">Tecnologia de ponta para a sua independência.</h3>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <!-- Card 1 -->
+                <div class="p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:shadow-xl transition-all hover:-translate-y-2 group">
+                    <div class="w-14 h-14 bg-deepblue/5 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-sunset/10 transition-colors">
+                        <svg class="w-7 h-7 text-deepblue group-hover:text-sunset" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-deepblue mb-3">Painéis Monocristalinos</h4>
+                    <p class="text-slate-600 leading-relaxed">Máxima taxa de conversão de energia em espaços reduzidos, com design blackout premium.</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:shadow-xl transition-all hover:-translate-y-2 group">
+                    <div class="w-14 h-14 bg-deepblue/5 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-sunset/10 transition-colors">
+                        <svg class="w-7 h-7 text-deepblue group-hover:text-sunset" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-deepblue mb-3">Inversores Inteligentes</h4>
+                    <p class="text-slate-600 leading-relaxed">Gerenciamento via app, controle de fluxo e integração perfeita com a rede elétrica.</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:shadow-xl transition-all hover:-translate-y-2 group">
+                    <div class="w-14 h-14 bg-deepblue/5 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-sunset/10 transition-colors">
+                        <svg class="w-7 h-7 text-deepblue group-hover:text-sunset" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-deepblue mb-3">Sistemas Off-Grid</h4>
+                    <p class="text-slate-600 leading-relaxed">Baterias de lítio de ciclo profundo para garantir sua energia mesmo sem conexão à rede.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Script para alteração de cor da Nav ao rolar a página (Opcional para dar um toque mais premium) -->
+    <script>
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.replace('glass-nav', 'bg-deepblue');
+                navbar.classList.add('shadow-lg');
+            } else {
+                navbar.classList.replace('bg-deepblue', 'glass-nav');
+                navbar.classList.remove('shadow-lg');
+            }
+        });
+    </script>
+</body>
+</html>
