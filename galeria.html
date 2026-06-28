@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeoVolt | Galeria de Projetos</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        deepblue: '#0B132B',
+                        sunset: '#FF6B35',
+                        sunyellow: '#FFB703',
+                        emeraldlight: '#e0f2fe',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1e293b; /* Texto escuro para tema claro */
+            background-color: #f8fafc; /* Base clara */
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* 1. Animação de Fundo (Degradê em Movimento Tema Claro) */
+        .animated-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1;
+            /* Degradê claro suave e elegante (Gelo, Esmeralda bem claro, Azul claro) */
+            background: linear-gradient(-45deg, #f8fafc, #e0f2fe, #d1fae5, #f1f5f9);
+            background-size: 400% 400%;
+            animation: gradientMove 15s ease infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Nav (Fundo sólido escuro mantido conforme solicitado) */
+        .solid-nav {
+            background-color: rgba(11, 19, 43, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .nav-links-container::-webkit-scrollbar { display: none; }
+        .nav-links-container { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* 2. Masonry Grid Settings */
+        .masonry-grid {
+            column-count: 1;
+            column-gap: 1.5rem;
+        }
+        @media (min-width: 640px) { .masonry-grid { column-count: 2; } }
+        @media (min-width: 1024px) { .masonry-grid { column-count: 3; } }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
+            position: relative;
+            border-radius: 1rem;
+            overflow: hidden;
+            /* Força a renderização 3D para evitar glitch nas bordas arredondadas durante o scale */
+            transform: translateZ(0); 
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05); /* Sombra mais leve para combinar com o fundo claro */
+        }
+
+        /* 3. Efeito de Distorção no Carregamento (Modern Filter) */
+        .distort-load {
+            opacity: 0;
+            filter: contrast(150%) blur(10px) saturate(0%);
+            transform: scale(1.1) skewY(2deg);
+            animation: revealDistortion 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes revealDistortion {
+            100% {
+                opacity: 1;
+                filter: contrast(100%) blur(0px) saturate(100%);
+                transform: scale(1) skewY(0deg);
+            }
+        }
+
+        /* Ajustes do Hover Card (Overlay e Texto) */
+        .gallery-img {
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform;
+            width: 100%;
+            display: block;
+        }
+
+        .masonry-item:hover .gallery-img {
+            transform: scale(1.08);
+        }
+
+        /* Overlay escuro inicial que clareia no hover (mantendo escuro na base para ler o texto) */
+        .overlay {
+            background: rgba(0, 0, 0, 0.6); /* Overlay inicial */
+            transition: background 0.5s ease;
+        }
+
+        .masonry-item:hover .overlay {
+            /* No hover, fica transparente no topo e escuro só na base para o texto branco sobressair */
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.85) 100%);
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #e2e8f0; } /* Track mais clara */
+        ::-webkit-scrollbar-thumb { background: #10B981; border-radius: 4px; }
+    </style>
+</head>
+<body class="antialiased flex flex-col">
+
+    <!-- Fundo Animado -->
+    <div class="animated-bg"></div>
+
+    <!-- NAVEGAÇÃO FIXA (Mantida Idêntica e Escura) -->
+    <nav class="fixed top-0 left-0 w-full z-50 solid-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 mr-4">
+                    <a href="index.html" class="flex items-center gap-2 group">
+                        <svg class="h-8 w-8 text-sunset group-hover:text-sunyellow transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                        <span class="text-white text-2xl font-bold tracking-tight">Neo<span class="font-light text-gray-300">Volt</span></span>
+                    </a>
+                </div>
+                
+                <!-- Links Desktop Diretos -->
+                <div class="flex-1 overflow-hidden flex justify-end">
+                    <div class="nav-links-container flex items-center space-x-6 overflow-x-auto whitespace-nowrap pl-4 pr-2">
+                        <a href="index.html" class="text-gray-400 hover:text-white py-2 text-sm font-medium transition-colors border-b-2 border-transparent hover:border-white/50">Home</a>
+                        <a href="sobre.html" class="text-gray-400 hover:text-white py-2 text-sm font-medium transition-colors border-b-2 border-transparent hover:border-white/50">Sobre</a>
+                        <a href="catalogo.html" class="text-gray-400 hover:text-white py-2 text-sm font-medium transition-colors border-b-2 border-transparent hover:border-white/50">Catálogo</a>
+                        <a href="serviços.html" class="text-gray-400 hover:text-white py-2 text-sm font-medium transition-colors border-b-2 border-transparent hover:border-white/50">Serviços</a>
+                        <!-- Marcado como ativo na página atual -->
+                        <a href="galeria.html" class="text-white hover:text-emerald-400 py-2 text-sm font-medium transition-colors border-b-2 border-emerald-400">Galeria</a>
+                        <a href="contato.html" class="text-gray-400 hover:text-white py-2 text-sm font-medium transition-colors border-b-2 border-transparent hover:border-white/50">Contato</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTEÚDO PRINCIPAL (Galeria) -->
+    <main class="flex-grow pt-32 pb-24 lg:pt-40 lg:pb-32 px-6 lg:px-8 max-w-7xl mx-auto w-full relative z-10">
+        
+        <!-- Cabeçalho (Atualizado para cores escuras de texto) -->
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-emerald-600 font-semibold tracking-widest uppercase text-sm mb-4">Prova Social</h2>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-deepblue leading-tight mb-6">
+                Poder que se <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-cyan-500">Pode Ver</span>
+            </h1>
+            <p class="text-lg text-slate-600 font-light">
+                Do agronegócio à arquitetura de alto padrão. Explore alguns dos ecossistemas energéticos de alta performance que projetamos e executamos.
+            </p>
+        </div>
+
+        <!-- Masonry Grid -->
+        <div class="masonry-grid" id="gallery-container">
+            
+            <!-- Item 1: Residência -->
+            <div class="masonry-item group cursor-pointer">
+                <!-- Imagem -->
+                <img src="https://images.unsplash.com/photo-1613665813446-82a78c468a1d?q=80&w=800&auto=format&fit=crop" 
+                     alt="Residência de Alto Padrão" 
+                     class="gallery-img distort-load">
+                <!-- Overlay Escuro -->
+                <div class="overlay absolute inset-0"></div>
+                <!-- Texto Deslizante -->
+                <div class="absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end h-full translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out z-10">
+                    <span class="text-emerald-400 text-xs font-bold uppercase tracking-wider mb-1">Residencial</span>
+                    <h3 class="text-white text-xl font-bold mb-2">Projeto Alphaville</h3>
+                    <p class="text-slate-200 text-sm line-clamp-2">Sistema híbrido de 12kW com baterias ocultas na garagem, garantindo 100% de autonomia e proteção contra apagões.</p>
+                </div>
+            </div>
+
+            <!-- Item 2: Agronegócio (Vertical) -->
+            <div class="masonry-item group cursor-pointer">
+                <img src="https://images.unsplash.com/photo-1548611635-b6e7827d7d4a?q=80&w=800&auto=format&fit=crop" 
+                     alt="Fazenda Solar" 
+                     class="gallery-img distort-load">
+                <div class="overlay absolute inset-0"></div>
+                <div class="absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end h-full translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out z-10">
+                    <span class="text-yellow-400 text-xs font-bold uppercase tracking-wider mb-1">Agronegócio</span>
+                    <h3 class="text-white text-xl font-bold mb-2">Fazenda Santa Luzia</h3>
+                    <p class="text-slate-200 text-sm line-clamp-3">Usina de solo com rastreadores solares (trackers) para alimentação de pivôs centrais de irrigação no interior de SP.</p>
+                </div>
+            </div>
+
+            <!-- Item 3: Inversor/Equipamento -->
+            <div class="masonry-item group cursor-pointer">
+                <img src="https://images.unsplash.com/photo-1559302504-20700779774a?q=80&w=800&auto=format&fit=crop" 
+                     alt="Equipamentos de Bateria e Inversor" 
+                     class="gallery-img distort-load">
+                <div class="overlay absolute inset-0"></div>
+                <div class="absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end h-full translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out z-10">
+                    <span class="text-blue-400 text-xs font-bold uppercase tracking-wider mb-1">Engenharia</span>
+                    <h3 class="text-white text-xl font-bold mb-2">Sala Técnica Off-Grid</h3>
+                    <p class="text-slate-200 text-sm">Painel de automação montado com cabeamento estruturado e inversores trabalhando em paralelo.</p>
+                </div>
+            </div>
+
+            <!-- Item 4: Industrial/Comercial -->
+            <div class="masonry-item group cursor-pointer">
+                <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?q=80&w=800&auto=format&fit=crop" 
+                     alt="Galpão Industrial com Energia Solar" 
+                     class="gallery-img distort-load">
+                <div class="overlay absolute inset-0"></div>
+                <div class="absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end h-full translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out z-10">
+                    <span class="text-sunset text-xs font-bold uppercase tracking-wider mb-1">Comercial</span>
+                    <h3 class="text-white text-xl font-bold mb-2">Galpão Logístico Sul</h3>
+                    <p class="text-slate-200 text-sm">Cobertura completa em telhado de zinco, reduzindo o custo fixo da operação em 92% ao mês.</p>
+                </div>
+            </div>
+
+            <!-- Item 5: Detalhe das placas (Close-up) -->
+            <div class="masonry-item group cursor-pointer">
+                <img src="https://images.unsplash.com/photo-1521618755572-156ae0cdd74d?q=80&w=800&auto=format&fit=crop" 
+                     alt="Detalhe do Painel Solar" 
+                     class="gallery-img distort-load">
+                <div class="overlay absolute inset-0"></div>
+                <div class="absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end h-full translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out z-10">
+                    <span class="text-cyan-400 text-xs font-bold uppercase tracking-wider mb-1">Tecnologia</span>
+                    <h3 class="text-white text-xl font-bold mb-2">Módulos N-Type</h3>
+                    <p class="text-slate-200 text-sm">Instalação utilizando módulos bifaciais para maximizar a captação através da reflexão do telhado claro.</p>
+                </div>
+            </div>
+
+            <!-- Item 6: Paisagem/Fazenda (Horizontal) -->
+            <div class="masonry-item group cursor-pointer">
+                <img src="https://images.unsplash.com/photo-1497440001374-f26997328c1b?q=80&w=800&auto=format&fit=crop" 
+                     alt="Pôr do sol em Fazenda Solar" 
+                     class="gallery-img distort-load">
+                <div class="overlay absolute inset-0"></div>
+                <div class="absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end h-full translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out z-10">
+                    <span class="text-yellow-400 text-xs font-bold uppercase tracking-wider mb-1">Usina</span>
+                    <h3 class="text-white text-xl font-bold mb-2">Complexo Solar Vale</h3>
+                    <p class="text-slate-200 text-sm">Geração centralizada de 2MW operando perfeitamente no interior de Minas Gerais.</p>
+                </div>
+            </div>
+
+             <!-- Item 7: Drone Shot Residencial -->
+             <div class="masonry-item group cursor-pointer">
+                <img src="https://images.unsplash.com/photo-1592833159155-c62df1b65634?q=80&w=800&auto=format&fit=crop" 
+                     alt="Visão de Drone de Bairro Solar" 
+                     class="gallery-img distort-load">
+                <div class="overlay absolute inset-0"></div>
+                <div class="absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end h-full translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out z-10">
+                    <span class="text-emerald-400 text-xs font-bold uppercase tracking-wider mb-1">Urbano</span>
+                    <h3 class="text-white text-xl font-bold mb-2">Condomínio Sustentável</h3>
+                    <p class="text-slate-200 text-sm">Instalação padronizada em 12 residências, criando uma micro-rede de compartilhamento de energia.</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Script para adicionar delays aleatórios/sequenciais à animação de carregamento -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const images = document.querySelectorAll('.distort-load');
+            
+            images.forEach((img, index) => {
+                // Adiciona um delay incremental para que as imagens apareçam uma a uma em cascata
+                const delay = (index * 0.15) + 's';
+                img.style.animationDelay = delay;
+            });
+        });
+    </script>
+
+</body>
+</html>
