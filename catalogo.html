@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeoVolt | Catálogo de Alta Performance</title>
+    
+    <!-- Tailwind CSS (via CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuração do Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        deepblue: '#0B132B',
+                        sunset: '#FF6B35',
+                        sunyellow: '#FFB703',
+                        emeraldlight: '#e0f2fe',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* Fundo Claro e Elegante para o Corpo da Página */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc; /* Fundo claro exigido */
+            color: #1e293b;
+            min-height: 100vh;
+        }
+
+        /* Nav (Fundo sólido escuro para manter a identidade original) */
+        .solid-nav {
+            background-color: #0B132B;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Oculta scrollbar da Navbar mas permite scroll no mobile */
+        .nav-links-container::-webkit-scrollbar { display: none; }
+        .nav-links-container { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Animação de Levitação (Floating) para as imagens */
+        .float-img {
+            animation: levitate 4s ease-in-out infinite;
+            will-change: transform;
+        }
+
+        @keyframes levitate {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Glassmorphism Base para o Card no Tema Claro */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 1.5rem;
+            position: relative;
+            transform-style: preserve-3d; /* Necessário para o Tilt 3D */
+            transition: transform 0.1s ease; /* Transição curta para o JS assumir suavemente */
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Camada Interna do Card (para manter o conteúdo acima da borda animada) */
+        .glass-content {
+            padding: 2rem;
+            border-radius: 1.5rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.3) 100%);
+        }
+
+        /* Borda com Degradê Animado Fluidamente */
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 1.5rem;
+            padding: 2px; /* Espessura da borda */
+            background: rgba(0, 0, 0, 0.08); /* Borda padrão discreta para tema claro */
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            transition: background 0.5s ease, opacity 0.5s ease;
+            opacity: 1;
+            pointer-events: none;
+        }
+
+        /* Hover no Card: Aciona a Borda Animada Colorida */
+        .glass-card:hover::before {
+            background: linear-gradient(60deg, #10B981, #3B82F6, #10B981, #0ea5e9);
+            background-size: 300% 300%;
+            animation: gradientBorder 3s ease infinite;
+        }
+
+        @keyframes gradientBorder {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Brilho interno do produto no hover (ajustado para fundo claro) */
+        .glass-card:hover .glow-bg {
+            opacity: 0.15;
+            transform: scale(1.2);
+        }
+        
+        .glow-bg {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150px; height: 150px;
+            background: #10B981;
+            filter: blur(50px);
+            opacity: 0.05;
+            transition: all 0.5s ease;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #e2e8f0; }
+        ::-webkit-scrollbar-thumb { background: #10B981; border-radius: 4px; }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden flex flex-col">
+
+    <!-- NAVEGAÇÃO FIXA ESCURA -->
+    <nav class="fixed top-0 left-0 w-full z-50 solid-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 mr-4">
+                    <a href="index.html" class="flex items-center gap-2 group">
+                        <svg class="h-8 w-8 text-sunset group-hover:text-sunyellow transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                        <span class="text-white text-2xl font-bold tracking-tight">Neo<span class="font-light text-gray-300">Volt</span></span>
+                    </a>
+                </div>
+                
+                <!-- Links (Visíveis em todas as telas, com scroll no mobile se necessário) -->
+                <div class="flex-1 overflow-hidden flex justify-end">
+                    <div class="nav-links-container flex items-center space-x-6 overflow-x-auto whitespace-nowrap pl-4 pr-2">
+                        <a href="index.html" class="text-gray-400 hover:text-white py-2 text-sm font-medium transition-colors border-b-2 border-transparent hover:border-white/50">Home</a>
+                        <a href="sobre.html" class="text-gray-400 hover:text-white py-2 text-sm font-medium transition-colors border-b-2 border-transparent hover:border-white/50">Sobre</a>
+                        <!-- Marcado como ativo na página atual -->
+                        <a href="catalogo.html" class="text-white hover:text-emerald-400 py-2 text-sm font-medium transition-colors border-b-2 border-emerald-400">Catálogo</a>
+                        <a href="serviços.html" class="text-gray-400 hover:text-white py-2 text-sm font-medium transition-colors border-b-2 border-transparent hover:border-white/50">Serviços</a>
+                        <a href="galeria.html" class="text-gray-400 hover:text-white py-2 text-sm font-medium transition-colors border-b-2 border-transparent hover:border-white/50">Galeria</a>
+                        <a href="contato.html" class="text-gray-400 hover:text-white py-2 text-sm font-medium transition-colors border-b-2 border-transparent hover:border-white/50">Contato</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTEÚDO PRINCIPAL (Catálogo Claro) -->
+    <main class="flex-grow pt-32 pb-24 lg:pt-40 lg:pb-32 px-6 lg:px-8 max-w-7xl mx-auto w-full">
+        
+        <!-- Cabeçalho (Atualizado para cores escuras sobre fundo claro) -->
+        <div class="text-center max-w-3xl mx-auto mb-20">
+            <h2 class="text-emerald-600 font-semibold tracking-widest uppercase text-sm mb-4">Soluções Off-Grid</h2>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-deepblue leading-tight mb-6">
+                Catálogo de <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-blue-600">Alta Performance</span>
+            </h1>
+            <p class="text-lg text-slate-600 font-light">
+                Equipamentos projetados para máxima eficiência e durabilidade. 
+                Construa sua independência energética com tecnologia de ponta.
+            </p>
+        </div>
+
+        <!-- Grid de Produtos (Cards Glassmorphism) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12">
+            
+            <!-- Produto 1: Painel Solar -->
+            <div class="glass-card group cursor-pointer">
+                <div class="glass-content">
+                    <div class="glow-bg"></div>
+                    
+                    <!-- Imagem Flutuante (Sombras suavizadas para fundo claro) -->
+                    <div class="h-48 flex items-center justify-center mb-6 relative z-10">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3256/3256150.png" 
+                             alt="Painel Solar Monocristalino" 
+                             class="float-img h-40 object-contain drop-shadow-xl"
+                             style="filter: drop-shadow(0px 15px 15px rgba(0,0,0,0.15));">
+                    </div>
+                    
+                    <!-- Detalhes do Produto -->
+                    <div class="text-left mt-auto">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-deepblue group-hover:text-emerald-600 transition-colors">Painel N-Type 600W</h3>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-4 line-clamp-2">
+                            Tecnologia monocristalina de dupla face com eficiência superior a 22.5%. Resistência extrema a intempéries.
+                        </p>
+                        
+                        <!-- Tags adaptadas para fundo claro -->
+                        <div class="flex items-center gap-2 mb-6">
+                            <span class="px-2 py-1 text-xs font-semibold bg-emerald-100 text-emerald-700 rounded-md">Monocristalino</span>
+                            <span class="px-2 py-1 text-xs font-semibold bg-slate-100 text-slate-700 rounded-md">25 anos garantia</span>
+                        </div>
+                        
+                        <button class="w-full py-3 rounded-lg border border-slate-200 bg-white/50 text-slate-700 font-medium hover:bg-emerald-500 hover:border-emerald-500 hover:text-white transition-all duration-300 shadow-sm hover:shadow-lg">
+                            Ver Especificações
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Produto 2: Bateria de Lítio -->
+            <div class="glass-card group cursor-pointer" style="animation-delay: 0.2s;">
+                <div class="glass-content">
+                    <div class="glow-bg" style="background: #3B82F6;"></div>
+                    
+                    <!-- Imagem Flutuante (Sombras suavizadas para fundo claro) -->
+                    <div class="h-48 flex items-center justify-center mb-6 relative z-10">
+                        <img src="https://cdn-icons-png.flaticon.com/512/8654/8654168.png" 
+                             alt="Bateria de Lítio LiFePO4" 
+                             class="float-img h-36 object-contain drop-shadow-xl"
+                             style="filter: drop-shadow(0px 15px 15px rgba(0,0,0,0.15)) hue-rotate(10deg);">
+                    </div>
+                    
+                    <!-- Detalhes do Produto -->
+                    <div class="text-left mt-auto">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-deepblue group-hover:text-blue-600 transition-colors">Bateria NV-Lithium 5kWh</h3>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-4 line-clamp-2">
+                            Células LiFePO4 de grau automotivo. +6000 ciclos de vida útil e sistema inteligente de gerenciamento (BMS).
+                        </p>
+                        
+                        <!-- Tags adaptadas para fundo claro -->
+                        <div class="flex items-center gap-2 mb-6">
+                            <span class="px-2 py-1 text-xs font-semibold bg-blue-100 text-blue-700 rounded-md">LiFePO4</span>
+                            <span class="px-2 py-1 text-xs font-semibold bg-slate-100 text-slate-700 rounded-md">Expansível</span>
+                        </div>
+                        
+                        <button class="w-full py-3 rounded-lg border border-slate-200 bg-white/50 text-slate-700 font-medium hover:bg-emerald-500 hover:border-emerald-500 hover:text-white transition-all duration-300 shadow-sm hover:shadow-lg">
+                            Ver Especificações
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Produto 3: Inversor/Controlador -->
+            <div class="glass-card group cursor-pointer" style="animation-delay: 0.4s;">
+                <div class="glass-content">
+                    <div class="glow-bg" style="background: #FFB703;"></div>
+                    
+                    <!-- Imagem Flutuante (Sombras suavizadas para fundo claro) -->
+                    <div class="h-48 flex items-center justify-center mb-6 relative z-10">
+                        <img src="https://cdn-icons-png.flaticon.com/512/4236/4236928.png" 
+                             alt="Inversor Híbrido Inteligente" 
+                             class="float-img h-40 object-contain drop-shadow-xl"
+                             style="filter: drop-shadow(0px 15px 15px rgba(0,0,0,0.15));">
+                    </div>
+                    
+                    <!-- Detalhes do Produto -->
+                    <div class="text-left mt-auto">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-deepblue group-hover:text-amber-500 transition-colors">Inversor Híbrido 10kW</h3>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-4 line-clamp-2">
+                            O cérebro do seu sistema. Controla injeção na rede, carga de baterias e fornece energia pura senoidal.
+                        </p>
+                        
+                        <!-- Tags adaptadas para fundo claro -->
+                        <div class="flex items-center gap-2 mb-6">
+                            <span class="px-2 py-1 text-xs font-semibold bg-amber-100 text-amber-700 rounded-md">Híbrido</span>
+                            <span class="px-2 py-1 text-xs font-semibold bg-slate-100 text-slate-700 rounded-md">Wi-Fi Integrado</span>
+                        </div>
+                        
+                        <button class="w-full py-3 rounded-lg border border-slate-200 bg-white/50 text-slate-700 font-medium hover:bg-emerald-500 hover:border-emerald-500 hover:text-white transition-all duration-300 shadow-sm hover:shadow-lg">
+                            Ver Especificações
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Script para o Efeito 3D Tilt nos Cards -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.glass-card');
+
+            cards.forEach(card => {
+                // Evento de movimento do mouse para inclinar o card
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left; // Coordenada X dentro do card
+                    const y = e.clientY - rect.top;  // Coordenada Y dentro do card
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    // Calcula a rotação (máximo de 15 graus para evitar exagero)
+                    const rotateX = ((y - centerY) / centerY) * -15; 
+                    const rotateY = ((x - centerX) / centerX) * 15;
+                    
+                    // Aplica a transformação 3D e um leve scale
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                });
+                
+                // Suaviza a entrada do mouse removendo a transição de retorno
+                card.addEventListener('mouseenter', () => {
+                    card.style.transition = 'transform 0.1s ease-out';
+                });
+
+                // Reseta a posição do card quando o mouse sai
+                card.addEventListener('mouseleave', () => {
+                    // Transição mais lenta para o card voltar ao eixo zero suavemente
+                    card.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)';
+                    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
