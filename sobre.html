@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeoVolt | Sobre Nossa História</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        deepblue: '#0B132B',
+                        sunset: '#FF6B35',
+                        sunyellow: '#FFB703',
+                        emeraldlight: '#e0f2fe',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: 
+                radial-gradient(circle at 0% 0%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 100% 100%, rgba(16, 185, 129, 0.12) 0%, transparent 50%),
+                #f8fafc;
+            color: #1e293b;
+        }
+
+        .clip-asymmetric {
+            clip-path: polygon(12% 0, 100% 8%, 88% 100%, 0 92%);
+            transition: all 0.5s ease;
+        }
+
+        /* Correção: will-change adicionado para evitar bugs de renderização na animação */
+        .glow-container {
+            filter: drop-shadow(0px 0px 15px rgba(16, 185, 129, 0.5));
+            animation: emeraldPulse 4s ease-in-out infinite alternate;
+            will-change: transform, filter; 
+        }
+
+        @keyframes emeraldPulse {
+            0% { filter: drop-shadow(0px 0px 10px rgba(16, 185, 129, 0.3)); transform: translateY(0px); }
+            100% { filter: drop-shadow(0px 0px 30px rgba(16, 185, 129, 0.8)); transform: translateY(-10px); }
+        }
+
+        .reveal-item {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-item.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .solid-nav {
+            background-color: #0B132B;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #e2e8f0; }
+        ::-webkit-scrollbar-thumb { background: #10B981; border-radius: 4px; }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden min-h-screen flex flex-col">
+
+    <nav class="fixed top-0 left-0 w-full z-50 solid-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="flex items-center gap-2 group">
+                        <svg class="h-8 w-8 text-sunset group-hover:text-sunyellow transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                        <span class="text-white text-2xl font-bold tracking-tight">Neo<span class="font-light text-gray-300">Volt</span></span>
+                    </a>
+                </div>
+                
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium transition-colors border-b-2 border-transparent hover:border-white/50">Home</a>
+                        <a href="sobre.html" class="text-white hover:text-sunset px-3 py-2 text-sm font-medium transition-colors border-b-2 border-emerald-400">Sobre</a>
+                        <a href="catalogo.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium transition-colors border-b-2 border-transparent hover:border-white/50">Catálogo</a>
+                        <a href="serviços.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium transition-colors border-b-2 border-transparent hover:border-white/50">Serviços</a>
+                        <a href="galeria.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium transition-colors border-b-2 border-transparent hover:border-white/50">Galeria</a>
+                        <a href="contato.html" class="text-gray-200 hover:text-white px-3 py-2 text-sm font-medium transition-colors border-b-2 border-transparent hover:border-white/50">Contato</a>
+                    </div>
+                </div>
+
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-white/10 focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Abrir menu</span>
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-32 pb-24 lg:pt-40 lg:pb-32 px-6 lg:px-8 max-w-7xl mx-auto w-full">
+        
+        <div class="text-center max-w-4xl mx-auto mb-20 reveal-item">
+            <h2 class="text-emerald-600 font-semibold tracking-widest uppercase text-sm mb-4">Nossa Essência</h2>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-deepblue leading-tight mb-6">
+                A Busca Definitiva pela <br/>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-400">
+                    Independência Energética
+                </span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-600 font-light">
+                Não vendemos apenas painéis solares. Nós projetamos a sua liberdade. Conheça a história dos engenheiros que decidiram reescrever as regras da matriz elétrica.
+            </p>
+        </div>
+
+       
+
+            <div class="w-full lg:w-1/2 space-y-8" id="text-stagger-container">
+                
+                <div class="reveal-item" style="transition-delay: 0.1s;">
+                    <h3 class="text-2xl font-bold text-deepblue mb-3">O Início: Desafiando o Sistema Grid</h3>
+                    <p class="text-slate-600 leading-relaxed text-lg">
+                        Fundada em 2018 por três engenheiros elétricos exaustos da dependência de matrizes poluentes e tarifas abusivas, a NeoVolt nasceu com um único objetivo: tornar sistemas *off-grid* e inversores híbridos uma realidade acessível para o setor produtivo e residencial de alto padrão.
+                    </p>
+                </div>
+
+                <div class="reveal-item" style="transition-delay: 0.3s;">
+                    <div class="w-12 h-1 bg-emerald-400 mb-6 rounded-full"></div>
+                    <h3 class="text-2xl font-bold text-deepblue mb-3">Tecnologia, Não Apenas Equipamento</h3>
+                    <p class="text-slate-600 leading-relaxed text-lg">
+                        O conceito <span class="font-semibold text-emerald-600">'Clean Tech'</span> vai além das placas monocristalinas. Trata-se do ecossistema que criamos: softwares de gerenciamento de carga, baterias de lítio de ciclo ultraprofundo e algoritmos preditivos que calculam seu consumo antes mesmo que você ligue um disjuntor.
+                    </p>
+                </div>
+
+                <div class="reveal-item" style="transition-delay: 0.5s;">
+                    <div class="bg-white border border-slate-100 shadow-lg p-6 rounded-2xl relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-sunset"></div>
+                        <p class="italic text-slate-700">
+                            "A verdadeira energia limpa é aquela que você produz, gerencia e armazena. O sol fornece o recurso, nós fornecemos a autonomia absoluta."
+                        </p>
+                        <p class="mt-4 text-sm font-bold text-deepblue">— Elena Rostova, CTO & Co-Fundadora</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="mt-32 grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-slate-200 pt-16">
+            <div class="text-center reveal-item" style="transition-delay: 0.1s;">
+                <p class="text-4xl md:text-5xl font-black text-emerald-500 mb-2">+50MW</p>
+                <p class="text-sm uppercase tracking-widest text-slate-500 font-semibold">Energia Gerada</p>
+            </div>
+            <div class="text-center reveal-item" style="transition-delay: 0.2s;">
+                <p class="text-4xl md:text-5xl font-black text-deepblue mb-2">100%</p>
+                <p class="text-sm uppercase tracking-widest text-slate-500 font-semibold">Independência</p>
+            </div>
+            <div class="text-center reveal-item" style="transition-delay: 0.3s;">
+                <p class="text-4xl md:text-5xl font-black text-sunset mb-2">+3k</p>
+                <p class="text-sm uppercase tracking-widest text-slate-500 font-semibold">Projetos Ativos</p>
+            </div>
+            <div class="text-center reveal-item" style="transition-delay: 0.4s;">
+                <p class="text-4xl md:text-5xl font-black text-sunyellow mb-2">0</p>
+                <p class="text-sm uppercase tracking-widest text-slate-500 font-semibold">Emissão de Carbono</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const revealElements = document.querySelectorAll('.reveal-item');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15 
+            };
+
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            revealElements.forEach(el => {
+                revealObserver.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
