@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeoVolt | Nossos Serviços</title>
+    
+    <!-- Tailwind CSS (via CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuração do Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        deepblue: '#0B132B',
+                        sunset: '#FF6B35',
+                        sunyellow: '#FFB703',
+                        emeraldlight: '#e0f2fe',
+                        pastelgreen: '#d1fae5', 
+                        pastelyellow: '#fef08a' 
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Nav (Fundo sólido escuro idêntico ao catálogo) */
+        .solid-nav {
+            background-color: #0B132B;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Oculta scrollbar da Navbar mas permite scroll no mobile */
+        .nav-links-container::-webkit-scrollbar { display: none; }
+        .nav-links-container { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* --- Fundo Animado Orgânico (Blobs) --- */
+        .bg-shapes-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .blob {
+            position: absolute;
+            filter: blur(80px);
+            opacity: 0.6;
+            animation: floatBlob 25s infinite alternate ease-in-out;
+            will-change: transform;
+        }
+
+        .blob-1 {
+            top: -10%; left: -10%;
+            width: 50vw; height: 50vw;
+            background: #d1fae5; 
+            animation-delay: 0s;
+        }
+
+        .blob-2 {
+            bottom: -20%; right: -10%;
+            width: 60vw; height: 60vw;
+            background: #fef08a; 
+            animation-delay: -5s;
+        }
+
+        .blob-3 {
+            top: 40%; left: 30%;
+            width: 40vw; height: 40vw;
+            background: rgba(16, 185, 129, 0.15); 
+            animation-delay: -10s;
+        }
+
+        @keyframes floatBlob {
+            0% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
+            33% { transform: translate(30px, -50px) scale(1.1) rotate(15deg); }
+            66% { transform: translate(-40px, 40px) scale(0.9) rotate(-10deg); }
+            100% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
+        }
+
+        /* --- Efeitos da Imagem (P&B para Colorido + Zoom Interno) --- */
+        .img-container {
+            overflow: hidden;
+            border-radius: 1.5rem;
+            position: relative;
+            transform: translateZ(0); 
+        }
+
+        .service-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Filtro P&B inicial e transição longa para suavidade */
+            filter: grayscale(100%);
+            transform: scale(1.01); 
+            transition: filter 0.8s ease, transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform, filter;
+        }
+
+        /* No hover do container pai, afeta a imagem filha */
+        .group:hover .service-img {
+            filter: grayscale(0%);
+            transform: scale(1.15);
+        }
+
+        /* --- Linha do Tempo --- */
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, rgba(16, 185, 129, 0) 0%, rgba(16, 185, 129, 0.3) 15%, rgba(16, 185, 129, 0.3) 85%, rgba(16, 185, 129, 0) 100%);
+            transform: translateX(-50%);
+            z-index: 0;
+        }
+        
+        /* Ocultar a linha no mobile */
+        @media (max-width: 768px) {
+            .timeline-line { display: none; }
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #e2e8f0; }
+        ::-webkit-scrollbar-thumb { background: #10B981; border-radius: 4px; }
+    </style>
+</head>
+<body class="antialiased flex flex-col">
+
+    <!-- Fundo Animado com Formas Orgânicas -->
+    <div class="bg-shapes-container">
+        <div class="blob blob-1 rounded-full"></div>
+        <div class="blob blob-2 rounded-full"></div>
+        <div class="blob blob-3 rounded-full"></div>
+    </div>
+
+    <!-- NAVEGAÇÃO FIXA ESCURA -->
+    <nav class="fixed top-0 left-0 w-full z-50 solid-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 mr-4">
+                    <a href="index.html" class="flex items-center gap-2 group">
+                        <svg class="h-8 w-8 text-sunset group-hover:text-sunyellow transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                        <span class="text-white text-2xl font-bold tracking-tight">Neo<span class="font-light text-gray-300">Volt</span></span>
+                    </a>
+                </div>
+                
+                <!-- Links Desktop Diretos -->
+                <div class="flex-1 overflow-hidden flex justify-end">
+                    <div class="nav-links-container flex items-center space-x-6 overflow-x-auto whitespace-nowrap pl-4 pr-2">
+                        <a href="index.html" class="text-gray-400 hover:text-white py-2 text-sm font-medium transition-colors border-b-2 border-transparent hover:border-white/50">Home</a>
+                        <a href="sobre.html" class="text-gray-400 hover:text-white py-2 text-sm font-medium transition-colors border-b-2 border-transparent hover:border-white/50">Sobre</a>
+                        <a href="catalogo.html" class="text-gray-400 hover:text-white py-2 text-sm font-medium transition-colors border-b-2 border-transparent hover:border-white/50">Catálogo</a>
+                        <!-- Marcado como ativo na página atual -->
+                        <a href="serviços.html" class="text-white hover:text-emerald-400 py-2 text-sm font-medium transition-colors border-b-2 border-emerald-400">Serviços</a>
+                        <a href="galeria.html" class="text-gray-400 hover:text-white py-2 text-sm font-medium transition-colors border-b-2 border-transparent hover:border-white/50">Galeria</a>
+                        <a href="contato.html" class="text-gray-400 hover:text-white py-2 text-sm font-medium transition-colors border-b-2 border-transparent hover:border-white/50">Contato</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTEÚDO PRINCIPAL (Serviços) -->
+    <main class="flex-grow pt-32 pb-24 lg:pt-40 lg:pb-32 px-6 lg:px-8 max-w-7xl mx-auto w-full relative z-10">
+        
+        <!-- Cabeçalho -->
+        <div class="text-center max-w-3xl mx-auto mb-24 relative">
+            <h2 class="text-emerald-600 font-semibold tracking-widest uppercase text-sm mb-4">Experiência & Execução</h2>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-deepblue leading-tight mb-6">
+                Excelência do <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-yellow-500">Projeto à Entrega</span>
+            </h1>
+            <p class="text-lg text-slate-600 font-light">
+                Não fornecemos apenas a tecnologia. Nossa engenharia cuida de cada etapa, garantindo uma transição energética impecável, segura e validada pelas normativas mais rigorosas.
+            </p>
+        </div>
+
+        <!-- Linha do Tempo de Serviços -->
+        <div class="relative max-w-5xl mx-auto">
+            
+            <!-- Linha vertical central (desktop) -->
+            <div class="timeline-line"></div>
+
+            <!-- SERVIÇO 1 (Imagem Esquerda, Texto Direita) -->
+            <div class="flex flex-col md:flex-row items-center justify-between mb-24 md:mb-32 relative">
+                <!-- Ponto na timeline -->
+                <div class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-emerald-500 border-4 border-white shadow-lg z-10"></div>
+                
+                <div class="w-full md:w-5/12 mb-8 md:mb-0 group cursor-pointer">
+                    <!-- Container da imagem com máscara e hover -->
+                    <div class="img-container aspect-[4/3] shadow-xl">
+                        <!-- IMAGEM ATUALIZADA: Instalação Solar -->
+                        <img src="https://avatarenergia.com/wp-content/uploads/2022/12/Instalacion-de-paneles-solares.jpg" 
+                             alt="Técnicos instalando painéis solares em um telhado sob o sol" 
+                             class="service-img">
+                    </div>
+                </div>
+                
+                <div class="w-full md:w-5/12 text-left">
+                    <div class="inline-block px-3 py-1 mb-4 text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100 rounded-full">
+                        Etapa 01
+                    </div>
+                    <h3 class="text-3xl font-bold text-deepblue mb-4">Projeto & Instalação</h3>
+                    <p class="text-slate-600 leading-relaxed mb-6">
+                        Análise estrutural minuciosa e dimensionamento exato da demanda. Nossa equipe de engenheiros realiza a instalação com padrões industriais, ocultando fiações e garantindo a integridade do seu telhado, seja em residências de alto padrão ou galpões logísticos.
+                    </p>
+                    <ul class="space-y-2 text-sm text-slate-700 font-medium">
+                        <li class="flex items-center gap-2"><svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Estudo de sombreamento 3D</li>
+                        <li class="flex items-center gap-2"><svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Fixações anticorrosão</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- SERVIÇO 2 (Texto Esquerda, Imagem Direita) -->
+            <div class="flex flex-col-reverse md:flex-row items-center justify-between mb-24 md:mb-32 relative">
+                <!-- Ponto na timeline -->
+                <div class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-yellow-400 border-4 border-white shadow-lg z-10"></div>
+                
+                <div class="w-full md:w-5/12 text-left md:text-right mt-8 md:mt-0">
+                    <div class="inline-block px-3 py-1 mb-4 text-xs font-bold uppercase tracking-wider text-yellow-700 bg-yellow-100 rounded-full">
+                        Etapa 02
+                    </div>
+                    <h3 class="text-3xl font-bold text-deepblue mb-4">Homologação Técnica</h3>
+                    <p class="text-slate-600 leading-relaxed mb-6">
+                        A burocracia não é um problema seu. Nós lidamos com 100% dos trâmites legais junto à concessionária de energia da sua região. Emitimos as ARTs, submetemos os diagramas unifilares e acompanhamos a vistoria até a troca do medidor bidirecional.
+                    </p>
+                    <ul class="space-y-2 text-sm text-slate-700 font-medium md:flex md:flex-col md:items-end">
+                        <li class="flex items-center gap-2 flex-row-reverse md:flex-row justify-end">
+                            <span class="order-1 md:order-none">Emissão de ART por Engenheiro</span>
+                            <svg class="w-5 h-5 text-yellow-500 order-none md:order-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> 
+                        </li>
+                        <li class="flex items-center gap-2 flex-row-reverse md:flex-row justify-end">
+                            <span class="order-1 md:order-none">Liberação sem multas ou atrasos</span>
+                            <svg class="w-5 h-5 text-yellow-500 order-none md:order-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> 
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="w-full md:w-5/12 group cursor-pointer">
+                    <!-- Container da imagem com máscara e hover -->
+                    <div class="img-container aspect-[4/3] shadow-xl">
+                        <!-- IMAGEM ATUALIZADA: Homologação e Engenharia -->
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1000&q=80" 
+                             alt="Engenheiros analisando projeto de viabilidade técnica" 
+                             class="service-img">
+                    </div>
+                </div>
+            </div>
+
+            <!-- SERVIÇO 3 (Imagem Esquerda, Texto Direita) -->
+            <div class="flex flex-col md:flex-row items-center justify-between relative">
+                <!-- Ponto na timeline -->
+                <div class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-blue-500 border-4 border-white shadow-lg z-10"></div>
+                
+                <div class="w-full md:w-5/12 mb-8 md:mb-0 group cursor-pointer">
+                    <!-- Container da imagem com máscara e hover -->
+                    <div class="img-container aspect-[4/3] shadow-xl">
+                        <!-- IMAGEM ATUALIZADA: Manutenção Pós-venda -->
+                        <img src="https://images.unsplash.com/photo-1613665813446-82a78c468a1d?auto=format&fit=crop&w=1000&q=80" 
+                             alt="Técnico realizando manutenção preventiva e limpeza em usina solar" 
+                             class="service-img">
+                    </div>
+                </div>
+                
+                <div class="w-full md:w-5/12 text-left">
+                    <div class="inline-block px-3 py-1 mb-4 text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-100 rounded-full">
+                        Pós-Venda
+                    </div>
+                    <h3 class="text-3xl font-bold text-deepblue mb-4">Manutenção Premium</h3>
+                    <p class="text-slate-600 leading-relaxed mb-6">
+                        Seu sistema não pode parar. Oferecemos monitoramento remoto 24/7 de inversores e baterias via aplicativo. Realizamos limpeza técnica dos módulos, reaperto de conexões elétricas e testes termográficos para prevenir quedas de performance.
+                    </p>
+                    <ul class="space-y-2 text-sm text-slate-700 font-medium">
+                        <li class="flex items-center gap-2"><svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> App próprio de Monitoramento</li>
+                        <li class="flex items-center gap-2"><svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Inspeção Termográfica Anual</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html>
